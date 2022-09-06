@@ -1,10 +1,10 @@
-from flask import Flask, render_template, request
+from flask import Flask, Blueprint,render_template, request
 import requests
 import json
 #https://github.com/D3vd/Meme_Api
 
 
-app = Flask(__name__)
+views = Blueprint(__name__, "views")
 
 def render_meme():
     url = "https://meme-api.herokuapp.com/gimme"
@@ -16,11 +16,9 @@ def render_meme():
 
 
 
-@app.route('/')
+@views.route('/')
 def main():
     meme, subreddit = render_meme()
     return render_template('index.html', subreddit=subreddit,meme=meme)
 
 
-if __name__ == "__main__":
-    app.run()
